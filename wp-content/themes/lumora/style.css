@@ -15,3 +15,16 @@ img {
 .updated:not(.published) {
     display: none;
 }
+
+.dropdown-menu {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.nav-item:hover .dropdown-menu:not(.show) {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+

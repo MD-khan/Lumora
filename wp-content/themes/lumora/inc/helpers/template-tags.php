@@ -68,16 +68,19 @@ function the_post_custom_thumbnail( $post_id = null, $size = 'featured-thumbnail
 }
 
 
-if ( ! function_exists( 'lumora_posted_on' ) ) :
+if ( ! function_exists( 'lumora_get_posted_on' ) ) :
     /**
-     * Prints HTML with meta information for the current post-date/time.
+     * Retrieves HTML with meta information for the current post-date/time.
+     *
+     * @return string HTML string with post date.
      */
-    function lumora_posted_on() {
+    function lumora_get_posted_on() {
         // Initialize the time string with published date.
         $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
 
-        // If the post has been modified, include the modified time.
-        if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+        // Check if the post has been modified.
+        $modified = get_the_time( 'U' ) !== get_the_modified_time( 'U' );
+        if ( $modified ) {
             $time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
         }
 
@@ -97,11 +100,36 @@ if ( ! function_exists( 'lumora_posted_on' ) ) :
             '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
         );
 
-        // Output the final HTML.
-        echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
+        // Add a parent class if the post has been modified.
+        $post_classes = $modified ? 'post-modified' : '';
+
+        // Return the final HTML string.
+        return '<span class="posted-on ' . esc_attr( $post_classes ) . '">' . $posted_on . '</span>';
     }
 endif;
 
 
-?>
+
+if ( ! function_exists( 'lumora_get_posted_by' ) ) :
+    /**
+     * Retrieves HTML with meta information for the current post author.
+     *
+     * @return string HTML string with post author.
+     */
+    function lumora_get_posted_by() {
+        $author_link = sprintf(
+            /* translators: %s: post author */
+            esc_html_x( 'by %s', 'post author', 'lumora' ),
+            '<span class="author vcard" itemprop="author" itemscope itemtype="https://schema.org/Person">' . 
+                '<a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author" itemprop="url" aria-label="' . esc_attr( sprintf( __( 'View all posts by %s', 'lumora' ), get_the_author() ) ) . '">' . 
+                    '<span itemprop="name">' . esc_html( get_the_author() ) . '</span>' . 
+                '</a>' . 
+            '</span>'
+        );
+    
+        return '<span class="byline"> ' . $author_link . ' </span>';
+    }
+    
+endif;
+
 
