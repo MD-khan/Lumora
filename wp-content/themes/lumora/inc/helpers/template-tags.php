@@ -66,4 +66,42 @@ function get_the_post_custom_thumbnail( $post_id = null, $size = 'featured-thumb
 function the_post_custom_thumbnail( $post_id = null, $size = 'featured-thumbnail', $additional_attributes = array() ): void { 
     echo get_the_post_custom_thumbnail( $post_id, $size, $additional_attributes );
 }
+
+
+if ( ! function_exists( 'lumora_posted_on' ) ) :
+    /**
+     * Prints HTML with meta information for the current post-date/time.
+     */
+    function lumora_posted_on() {
+        // Initialize the time string with published date.
+        $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+
+        // If the post has been modified, include the modified time.
+        if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+            $time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
+        }
+
+        // Prepare the time string with the relevant dates.
+        $time_string = sprintf(
+            $time_string,
+            esc_attr( get_the_date( DATE_W3C ) ),          // %1$s: Published date in W3C format
+            esc_html( get_the_date() ),                    // %2$s: Published date display
+            esc_attr( get_the_modified_date( DATE_W3C ) ), // %3$s: Modified date in W3C format
+            esc_html( get_the_modified_date() )            // %4$s: Modified date display
+        );
+
+        // Prepare the posted on string with a link to the post.
+        $posted_on = sprintf(
+            /* translators: %s: post date */
+            esc_html_x( 'Posted on %s', 'post date', 'lumora' ),
+            '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+        );
+
+        // Output the final HTML.
+        echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
+    }
+endif;
+
+
 ?>
+

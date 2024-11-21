@@ -12,17 +12,15 @@
             <?php 
             // Include the entry header template part
             get_template_part( 'template-parts/components/blog/entry', 'header' ); 
+            get_template_part('template-parts/components/blog/entry','meta');
             ?>
+            
             <div class="card-body d-flex flex-column">
-                <h2 class="card-title">
-                    <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
-                        <?php the_title(); ?>
-                    </a>
-                </h2>
+
                 <div class="card-text">
                     <?php 
                         // Display an excerpt with a 'Read More' link
-                        the_excerpt(); 
+                        #the_excerpt(); 
                     ?>
                 </div>
                 <a href="<?php the_permalink(); ?>" class="mt-auto btn btn-primary">
