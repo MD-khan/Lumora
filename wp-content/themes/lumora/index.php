@@ -45,14 +45,6 @@
                     ?>
                 </div>
 
-                <?php
-                // Pagination
-                the_posts_pagination( array(
-                    'mid_size'  => 2,
-                    'prev_text' => __( '« Previous', 'lumora' ),
-                    'next_text' => __( 'Next »', 'lumora' ),
-                ) );
-                ?>
             </div>
         <?php else : ?>
             <div class="container">

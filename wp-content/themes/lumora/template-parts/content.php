@@ -11,22 +11,13 @@
         <div class="card h-100">
             <?php 
             // Include the entry header template part
-            get_template_part( 'template-parts/components/blog/entry', 'header' ); 
-            get_template_part('template-parts/components/blog/entry','meta');
+             get_template_part( 'template-parts/components/blog/entry', 'header' ); 
+             get_template_part('template-parts/components/blog/entry','meta');
+             get_template_part('template-parts/components/blog/entry','content');
+             get_template_part('template-parts/components/blog/entry','footer');
+
             ?>
             
-            <div class="card-body d-flex flex-column">
-
-                <div class="card-text">
-                    <?php 
-                        // Display an excerpt with a 'Read More' link
-                        #the_excerpt(); 
-                    ?>
-                </div>
-                <a href="<?php the_permalink(); ?>" class="mt-auto btn btn-primary">
-                    <?php esc_html_e( 'Read More', 'lumora' ); ?>
-                </a>
-            </div>
         </div>
     </article>
 </div>
