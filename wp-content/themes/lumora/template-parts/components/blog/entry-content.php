@@ -38,6 +38,7 @@
             lumora_the_excerpt( 100 ); // Trims to 100 characters if lumora_the_excerpt exists
         } else {
             the_excerpt();
+            echo lumora_excerp_more();
         }
     }
     ?>

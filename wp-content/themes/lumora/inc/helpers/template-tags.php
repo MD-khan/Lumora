@@ -132,4 +132,27 @@ if ( ! function_exists( 'lumora_get_posted_by' ) ) :
     
 endif;
 
+/**
+ * Customize the excerpt "Read More" link.
+ *
+ * This function replaces the default excerpt's "Read More" text with a styled button.
+ * The button links to the full post and is only displayed on non-single post pages.
+ *
+ * @param string $more The default "Read More" text. Defaults to an empty string.
+ * @return string The customized "Read More" link for excerpts.
+ */
+function lumora_excerp_more( $more = '' ) {
+    // Check if the current page is not a single post page
+    if ( ! is_single() ) {
+        // Format the "Read More" link as a button with a styled anchor tag
+        $more = sprintf(
+            '<button class="mt-4 btn btn-info"><a class="lumora-read-more text-white" href="%1$s">%2$s</a></button>',
+            esc_url( get_permalink( get_the_ID() ) ), // URL of the current post
+            esc_html__( 'Read more', 'lumora' ) // Translatable "Read More" text
+        );
+    }
+
+    return $more;
+}
+
 
