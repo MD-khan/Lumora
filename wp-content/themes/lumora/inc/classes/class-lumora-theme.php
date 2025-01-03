@@ -18,6 +18,7 @@ namespace Lumora\Inc;
     Assets::get_instance();
     Menus::get_instance();
     Meta_Boxes::get_instance();
+    Sidebars::get_instance();
 
     $this->setup_hooks();
 
@@ -74,6 +75,7 @@ namespace Lumora\Inc;
     add_theme_support( 'wp-block-style' );
 
     add_theme_support( 'align-wide');
+     
 
     global $content_width;
     if ( ! isset( $content_width ) ) {
