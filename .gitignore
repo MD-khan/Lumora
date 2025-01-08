@@ -1,14 +1,15 @@
 # WordPress core files
 /wp-admin/
-/wp-includes/
+wp-includes/
 
 # WordPress content
 /wp-content/cache/
-/wp-content/backups/
-/wp-content/uploads/
-/wp-content/upgrade/
-/wp-content/themes/*/node_modules
-/wp-content/plugins/*/node_modules
+wp-content/backups/
+wp-content/uploads/
+wp-content/upgrade/
+
+# Node Modules
+node_modules/
 
 # OS generated files
 .DS_Store
