@@ -26,6 +26,20 @@ class Assets {
    }
 
    public  function register_styles() {
+
+    
+    if ( file_exists( LUMORA_DIR_PATH . '/assets/src/library/fonts/fonts.css' ) ) {
+      wp_register_style(
+          'lumora-fonts-css',
+          LUMORA_DIR_URI . '/assets/src/library/fonts/fonts.css',
+          [],
+          filemtime( LUMORA_DIR_PATH . '/assets/src/library/fonts/fonts.css' )
+      );
+      wp_enqueue_style( 'lumora-fonts-css' );
+  }
+  
+
+
       wp_register_style(
         'lumora-style',
         get_stylesheet_uri(),
@@ -41,6 +55,7 @@ class Assets {
      '5.3.3'
       );
 
+      wp_enqueue_style( 'lumora-fonts' );
       wp_enqueue_style('lumora-style');
       wp_enqueue_style('bootstrap-css');
 
