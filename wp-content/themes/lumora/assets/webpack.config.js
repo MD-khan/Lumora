@@ -1,5 +1,5 @@
 /**
- * Webpack configuration for Lumora theme assets.
+ * Webpack configuration for Lumora theme assets with Sass support.
  */
 
 const path = require("path");
@@ -84,14 +84,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
+        test: /\.(png|jpg|jpeg|gif|ico)$/i,
         type: "asset/resource",
         generator: {
           filename: "images/[name][ext]"
         }
       },
       {
-        test: /\.(woff(2)?|eot|ttf|otf|svg)$/,
+        test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",
         generator: {
           filename: "fonts/[name][ext]"
