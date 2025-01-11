@@ -18,16 +18,16 @@ const SASS_DIR = path.resolve(__dirname, "src/sass");
 const BUILD_DIR = path.resolve(__dirname, "build");
 
 module.exports = {
-  // Entry points for JavaScript
+  // Entry points for JavaScript and Sass
   entry: {
-    main: JS_DIR + "/main.js",
-    editor: JS_DIR + "/editor.js"
+    main: [JS_DIR + "/main.js", SASS_DIR + "/main.scss"], // Include Sass as part of the main entry
+    editor: JS_DIR + "/editor.js",
   },
 
   // Output configuration
   output: {
     path: BUILD_DIR,
-    filename: "js/[name].js"
+    filename: "js/[name].js",
   },
 
   // Source maps
@@ -41,13 +41,13 @@ module.exports = {
         parallel: true,
         terserOptions: {
           format: {
-            comments: false
-          }
+            comments: false,
+          },
         },
-        extractComments: false
+        extractComments: false,
       }),
-      new CssMinimizerPlugin()
-    ]
+      new CssMinimizerPlugin(),
+    ],
   },
 
   // Loaders
@@ -60,9 +60,9 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.(scss|css)$/,
@@ -74,53 +74,49 @@ module.exports = {
             loader: "postcss-loader",
             options: {
               postcssOptions: {
-                plugins: [
-                  require("autoprefixer")
-                ]
-              }
-            }
+                plugins: [require("autoprefixer")],
+              },
+            },
           },
-          "sass-loader"
-        ]
+          "sass-loader",
+        ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|ico)$/i,
         type: "asset/resource",
         generator: {
-          filename: "images/[name][ext]"
-        }
+          filename: "images/[name][ext]",
+        },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",
         generator: {
-          filename: "fonts/[name][ext]"
-        }
-      }
-    ]
+          filename: "fonts/[name][ext]",
+        },
+      },
+    ],
   },
 
   // Plugins
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: "css/[name].css"
+      filename: "css/[name].css",
     }),
     new CopyPlugin({
-      patterns: [
-        { from: IMG_DIR, to: BUILD_DIR + "/images" }
-      ]
-    })
+      patterns: [{ from: IMG_DIR, to: BUILD_DIR + "/images" }],
+    }),
   ],
 
   // Development server
   devServer: {
     static: {
-      directory: BUILD_DIR
+      directory: BUILD_DIR,
     },
     compress: true,
     port: 9000,
     open: true,
-    hot: true
-  }
+    hot: true,
+  },
 };
