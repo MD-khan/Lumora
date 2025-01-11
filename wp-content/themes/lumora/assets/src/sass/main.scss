@@ -1,12 +1,12 @@
-// Essentials.
-@import "essentials";
+// Essentials
+@use "essentials";
 
 // Generic
-@import "2-generic/generic";
+@use "2-generic/generic";
 
-// Layouts.
-@import "4-layouts/posts/meta";
-@import "4-layouts/posts/pagination";
-@import "4-layouts/header/nav/navigation";
+// Layouts
+@use "4-layouts/posts/meta";
+@use "4-layouts/posts/pagination";
+@use "4-layouts/header/nav/navigation";
 
 // Components

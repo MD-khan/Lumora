@@ -1,5 +1,9 @@
 /* normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 
+/* Import variables */
+@use '../0-settings/variables' as vars; // Adjust the path based on your project structure
+@use '../0-settings/colors' as colors; // Import the color variables
+
 /* HTML5 display definitions
    ========================================================================== */
 
@@ -95,8 +99,8 @@ dfn {
  */
 
 mark {
-	background: $gray-200;
-	color: $black;
+	background: colors.$gray-200;
+	color: colors.$black;
 }
 
 /**
@@ -292,7 +296,7 @@ input[type="search"]::-webkit-search-decoration {
  */
 
 fieldset {
-	border: 1px solid $color__border-fieldset;
+	border: 1px solid vars.$color__border-fieldset;
 	margin: 0 2px;
 	padding: 6px 10px 12px;
 }
@@ -320,7 +324,7 @@ optgroup {
 	font-weight: 700;
 }
 
-/* Note: This file is updated by Sagar, To remove ducplication of styles. */
+/* Note: This file is updated by Sagar, To remove duplication of styles. */
 
 figure {
 	margin: 0;
