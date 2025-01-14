@@ -14,13 +14,13 @@ const isProduction = process.env.NODE_ENV === "production";
 // Paths
 const JS_DIR = path.resolve(__dirname, "src/js");
 const IMG_DIR = path.resolve(__dirname, "src/img");
-const SASS_DIR = path.resolve(__dirname, "src/sass");
+const SASS_DIR = path.resolve(__dirname, "src/scss");
 const BUILD_DIR = path.resolve(__dirname, "build");
 
 module.exports = {
   // Entry points for JavaScript and Sass
   entry: {
-    main: [JS_DIR + "/main.js", SASS_DIR + "/main.scss"], // Include Sass as part of the main entry
+    main: [JS_DIR + "/main.js", SASS_DIR + "/main.scss"], // Include SASS as part of the main entry
     editor: JS_DIR + "/editor.js",
   },
 
@@ -102,7 +102,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: "css/[name].css",
+      filename: "css/main.css", // Output CSS file as 'main.css'
     }),
     new CopyPlugin({
       patterns: [{ from: IMG_DIR, to: BUILD_DIR + "/images" }],
