@@ -1,6 +1,2 @@
-$primary-color: #50db34;
-
-body {
-  background-color: $primary-color;
-  font-family: Arial, sans-serif;
-}
+// Essentials
+@use "essentials";
