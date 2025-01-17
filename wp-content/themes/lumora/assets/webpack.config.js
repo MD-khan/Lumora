@@ -31,7 +31,7 @@ module.exports = {
   },
 
   // Source maps
-  devtool: isProduction ? "source-map" : "eval-source-map",
+  devtool: isProduction ? false : "inline-source-map",
 
   // Optimization settings
   optimization: {
@@ -74,7 +74,10 @@ module.exports = {
             loader: "postcss-loader",
             options: {
               postcssOptions: {
-                plugins: [require("autoprefixer")],
+                plugins: [
+                  require("autoprefixer"),
+                  // Add additional PostCSS plugins if needed
+                ],
               },
             },
           },
@@ -92,7 +95,9 @@ module.exports = {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",
         generator: {
-          filename: "fonts/[name][ext]",
+          filename: isProduction
+            ? "fonts/[name].[hash][ext]"
+            : "fonts/[name][ext]",
         },
       },
     ],
@@ -102,11 +107,12 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: "css/main.css", // Output CSS file as 'main.css'
+      filename: "css/[name].css", // Output CSS file
     }),
     new CopyPlugin({
       patterns: [{ from: IMG_DIR, to: BUILD_DIR + "/images" }],
     }),
+
   ],
 
   // Development server
@@ -118,5 +124,11 @@ module.exports = {
     port: 9000,
     open: true,
     hot: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: true,
+      },
+    },
   },
 };
