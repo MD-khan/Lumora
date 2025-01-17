@@ -1,11 +1,11 @@
 // Import font styles.
-@import "../library/fonts/fonts.css";
+//@import "../library/fonts/fonts.css";
 
 // // Import global settings like variables and configurations.
-// @import "0-settings/settings";
+ @use "0-settings/settings";
 
 // // Import sass-mq for media queries.
-// @import "~sass-mq";
+ @import "~sass-mq";
 
 // // Import tools like mixins and functions.
-// @import "1-tools/tools";
+@import "1-tools/tools";
