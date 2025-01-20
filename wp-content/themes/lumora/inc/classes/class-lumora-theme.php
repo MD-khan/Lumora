@@ -75,6 +75,8 @@ namespace Lumora\Inc;
     add_theme_support( 'wp-block-style' );
 
     add_theme_support( 'align-wide');
+
+    add_editor_style();
      
 
     global $content_width;
