@@ -78,6 +78,9 @@ namespace Lumora\Inc;
     add_theme_support( 'align-wide');
 
     add_editor_style();
+
+    // Remove the core block patterns
+    remove_theme_support('core-block-patterns');
      
 
     global $content_width;
