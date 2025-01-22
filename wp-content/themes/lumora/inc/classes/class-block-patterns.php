@@ -20,6 +20,7 @@ class Block_Patterns {
          * Actions
          */
         add_action('init', [$this, 'register_block_patterns']);
+        add_action('init',[$this, 'register_block_pattern_categories'] );
     }
 
     /**
@@ -60,9 +61,35 @@ class Block_Patterns {
                         </div>
                     </div>
                     <!-- /wp:cover -->',
-                'categories'  => [ 'lumora-category' ],
+                'categories'  => [ 'lumora-hero' ],
                 'keywords'    => [ 'hero', 'full-width', 'banner' ],
             ]
         );
     }
+
+    public function register_block_pattern_categories() {
+        // Ensure function exists
+        if ( ! function_exists( 'register_block_pattern_category' ) ) {
+            return;
+        }
+    
+        // Define block pattern categories
+        $pattern_categories = [
+            'lumora-general' => [
+                'label' => __( 'Lumora General', 'lumora' ),
+            ],
+            'lumora-hero' => [
+                'label' => __( 'Lumora Hero Sections', 'lumora' ),
+            ],
+            'lumora-footers' => [
+                'label' => __( 'Lumora Footers', 'lumora' ),
+            ],
+        ];
+    
+        // Register each block pattern category
+        foreach ( $pattern_categories as $category_name => $category_properties ) {
+            register_block_pattern_category( $category_name, $category_properties );
+        }
+    }
+    
 }
