@@ -19,8 +19,8 @@ class Block_Patterns {
         /**
          * Actions
          */
-        add_action('init', [$this, 'register_block_patterns']);
-        add_action('init',[$this, 'register_block_pattern_categories'] );
+        add_action( 'init', [ $this, 'register_block_patterns' ] );
+        add_action( 'init', [ $this, 'register_block_pattern_categories' ] );
     }
 
     /**
@@ -32,41 +32,33 @@ class Block_Patterns {
             return;
         }
 
-        // Define block pattern category
-        register_block_pattern_category(
-            'lumora-category',
-            [ 'label' => __( 'Lumora Patterns', 'lumora' ) ]
-        );
+        // Define block pattern paths and register them
+        $patterns = [
+            'hero-section' => 'template-parts/patterns/hero.php',
+            'footer-section' => 'template-parts/patterns/footer.php', // Example of another pattern
+        ];
 
-        // Register individual block patterns
-        register_block_pattern(
-            'lumora/hero-section',
-            [
-                'title'       => __( 'Hero Section', 'lumora' ),
-                'description' => _x( 'A full-width hero section with a heading, subheading, and call-to-action button.', 'Pattern description', 'lumora' ),
-                'content'     => '<!-- wp:cover {"url":"example.jpg","align":"full"} -->
-                    <div class="wp-block-cover alignfull">
-                        <div class="wp-block-cover__inner-container">
-                            <!-- wp:heading -->
-                            <h2>Your Hero Heading</h2>
-                            <!-- /wp:heading -->
+        foreach ( $patterns as $pattern_name => $pattern_path ) {
+            $content = $this->get_pattern_content( $pattern_path );
 
-                            <!-- wp:paragraph -->
-                            <p>Your hero subheading goes here.</p>
-                            <!-- /wp:paragraph -->
-
-                            <!-- wp:button -->
-                            <div class="wp-block-button"><a class="wp-block-button__link">Call to Action</a></div>
-                            <!-- /wp:button -->
-                        </div>
-                    </div>
-                    <!-- /wp:cover -->',
-                'categories'  => [ 'lumora-hero' ],
-                'keywords'    => [ 'hero', 'full-width', 'banner' ],
-            ]
-        );
+            if ( $content ) {
+                register_block_pattern(
+                    "lumora/{$pattern_name}",
+                    [
+                        'title'       => __( ucwords( str_replace( '-', ' ', $pattern_name ) ), 'lumora' ),
+                        'description' => __( "The {$pattern_name} block pattern.", 'lumora' ),
+                        'content'     => $content,
+                        'categories'  => [ 'lumora-general' ],
+                        'keywords'    => explode( '-', $pattern_name ),
+                    ]
+                );
+            }
+        }
     }
 
+    /**
+     * Registers custom block pattern categories.
+     */
     public function register_block_pattern_categories() {
         // Ensure function exists
         if ( ! function_exists( 'register_block_pattern_category' ) ) {
@@ -91,5 +83,20 @@ class Block_Patterns {
             register_block_pattern_category( $category_name, $category_properties );
         }
     }
-    
+
+    /**
+     * Loads block pattern content from a file.
+     *
+     * @param string $relative_path Path to the pattern file relative to the theme directory.
+     * @return string|false The content of the pattern file or false on failure.
+     */
+    private function get_pattern_content( $relative_path ) {
+        $absolute_path = get_template_directory() . '/' . $relative_path;
+
+        if ( file_exists( $absolute_path ) ) {
+            return file_get_contents( $absolute_path );
+        }
+
+        return false;
+    }
 }
