@@ -80,7 +80,7 @@ namespace Lumora\Inc;
     add_editor_style();
 
     // Remove the core block patterns
-    remove_theme_support('core-block-patterns');
+    #remove_theme_support('core-block-patterns');
      
 
     global $content_width;
