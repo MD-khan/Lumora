@@ -63,6 +63,14 @@ class Assets {
             filemtime(LUMORA_DIR_PATH . '/style.css')
         );
         wp_enqueue_style('lumora-style');
+        // Enqueue customizer styles
+    wp_register_style(
+        'lumora-customizer-style',
+        LUMORA_DIR_URI . '/assets/css/customizer.css',
+        [],
+        filemtime(LUMORA_DIR_PATH . '/assets/css/customizer.css')
+    );
+    wp_enqueue_style('lumora-customizer-style');
     }
 
     public function register_scripts() {
@@ -84,7 +92,19 @@ class Assets {
             true // Load in footer
         );
 
+         // Enqueue customizer scripts
+    wp_register_script(
+        'lumora-customizer-script',
+        LUMORA_DIR_URI . '/assets/js/customizer.js',
+        ['jquery', 'customize-preview'],
+        filemtime(LUMORA_DIR_PATH . '/assets/js/customizer.js'),
+        true // Load in footer
+    );
+        wp_enqueue_script('lumora-customizer-script');
+
         wp_enqueue_script('lumora-main-js');
         wp_enqueue_script('bootstrap-js');
     }
+
+    
 }

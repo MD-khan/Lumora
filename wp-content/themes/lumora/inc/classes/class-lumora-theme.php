@@ -20,6 +20,7 @@ namespace Lumora\Inc;
     Meta_Boxes::get_instance();
     Sidebars::get_instance();
     Block_Patterns::get_instance();
+    Customizer::get_instance();
 
     $this->setup_hooks();
 
